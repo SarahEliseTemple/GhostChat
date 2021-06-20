@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<meta name="author" content="Nhi, Dalon, Sarah">
+
+	<!-- name of project -->
+	<title>Ghost Chat</title>
+	<link href="style.css" rel="stylesheet" type="text/css" />
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<!-- fonts -->
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+	<link rel="icon" type="image/x-icon" href="./ChatBox_logo.ico" />
+</head>
+
+<body>
+	<nav>
+		<ul>
+			<li><a class="active" href="index.html">Hacks</a><li>
+			<li><a class="inactive" href="chat.html">Chat</a></li>
+			<li><a class="inactive" href="about.html">About</a></li>
+		</ul>
+	</nav>
+
+
+		<div class="title">
+			<h1>Meet. Chat. Disappear.</h1>
+			<p>Enjoy</p>
+		</div>
+  <ul id="messages"></ul>
+
+
+    <script src="script.js">
+  	<script src="/socket.io/socket.io.js">
+      var socket = io();
+
+      var messages = document.getElementById('messages');
+      var form = document.getElementById('form');
+      var input = document.getElementById('input');
+
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (input.value) {
+          socket.emit('chat message', input.value);
+          input.value = '';
+        }
+      });
+
+      socket.on('chat message', function(msg) {
+        var item = document.createElement('li');
+        item.textContent = msg;
+        messages.appendChild(item);
+        window.scrollTo(0, document.body.scrollHeight);
+      });
+    </script>
+		</script>
+
+    <p class="footer">© 2021, A Generic Group of Teenagers</p>
+
+</body>
+
+</html>
